@@ -1,0 +1,23 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+  box-shadow: 3px 0 6px rgba(0,0,0,.24);
+}
+
+
+.mat-toolbar.mat-primary {
+    background: #26A69A;
+    color: #fff;
+}
+
+.mat-toolbar span{
+	width: -webkit-fill-available;
+	text-align: center;
+}
+
+.clear-fix {
+    padding: 0.5px 0px 0.5px 0px;
+}
