@@ -58,7 +58,7 @@ mat-toolbar[_ngcontent-c10] mat-toolbar-row[_ngcontent-c10] {
 mat-list .snd .mat-list-item-content{
 	float: right;
 }
-.mat-form-field[_ngcontent-c10] {    
+.mat-form-field[_ngcontent-c10] {
     bottom: 78px;
     position: fixed;
 }
@@ -77,4 +77,84 @@ mat-list .snd .mat-list-item-content{
 textarea#mat-input-0 {
     font-size: 15px;
     font-family: monospace;
+}
+
+
+
+/*########################################################*/
+
+.reply {
+  height: 60px;
+  width: 100%;
+  background-color: #f5f1ee;
+  padding: 10px 5px 10px 5px !important;
+  margin: 0 !important;
+  z-index: 1000;
+}
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.reply-emojis {
+  padding: 5px !important;
+}
+
+.fa-smile-o:before {
+  content: "\f118";
+}
+
+.reply-main {
+  padding: 10px 5px !important;
+}
+@media (min-width: 768px) {
+  .col-sm-9 {
+    width: 75%;
+  }
+}
+@media (min-width: 768px){
+  .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9 {
+    float: left;
+  }
+}
+
+.col-xs-9 {
+  width: 75%;
+}
+
+.reply-main textarea {
+  width: 100%;
+  resize: none;
+  overflow: hidden;
+  padding: 5px !important;
+  outline: none;
+  border: none;
+  text-indent: 5px;
+  box-shadow: none;
+  height: 100%;
+  font-size: 16px;
+}
+.reply-recording {
+  padding: 5px !important;
+}
+.reply-send {
+  padding: 5px !important;
+}
+.form-control {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }

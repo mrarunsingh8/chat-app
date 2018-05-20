@@ -1,0 +1,55 @@
+<div class="col-md-10">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="content-box-header panel-heading">
+				<div class="panel-title ">User</div>
+			
+			<div class="panel-options">
+				<a href="/user/add" data-rel="collapse"><i class="glyphicon glyphicon-plus"></i> Add New</a>
+			</div>
+			</div>
+			<div class="content-box-large box-with-header">
+				<div class="panel-body">
+  					<div class="table-responsive">
+  						<table class="table">
+			              <thead>
+			                <tr>
+			                  <th>#</th>
+			                  <th>Name</th>
+			                  <th>Email</th>
+			                  <th>Username</th>
+			                  <th>Contact</th>
+			                  <th>Token Expire</th>
+			                  <th>Action</th>
+			                </tr>
+			              </thead>
+			              <tbody>
+			              	<% userData.forEach(function(user){ %>
+			                <tr >
+			                  <td><%= user.id%></td>
+			                  <td><%= user.name%></td>
+			                  <td><%= user.email%></td>
+			                  <td><%= user.username%></td>
+			                  <td><%= user.contact%></td>
+			                  <td><%= user.expireIn%></td>
+			                  <td>
+			                  	<div class="btn-group">
+				                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				                      Action <span class="caret"></span>
+				                    </button>
+				                    <ul class="dropdown-menu" role="menu">
+				                      <li><a href="user/edit/<%= user.id %>">Edit</a></li>
+				                      <li><a href="user/delete/<%= user.id%>">Delete</a></li>
+				                    </ul>
+				                </div>
+			                  </td>
+			                </tr>
+			                <% });%>
+			              </tbody>
+			            </table>
+  					</div>
+  				</div>
+			</div>
+		</div>
+	</div>
+</div>

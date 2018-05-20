@@ -1,0 +1,88 @@
+<div class="col-md-10">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title">Book Add/ Update</div>
+
+                    <div class="panel-options">
+                        <a href="/book" data-rel="collapse"><i class="glyphicon glyphicon-arrow-left"></i> Back</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" action="<%= (typeof bookData=='object' && bookData.id) ? 'book/edit/'+bookData.id : 'book/add'; %>" method="post">
+                        <div class="form-group <%= (typeof formError=='object' && formError.hasOwnProperty('bookname')) ? 'has-error' : 'no-has-error'; %>">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Book Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Book Name" name="bookname" value="<%= (typeof bookData=='object' && bookData.bookname) ? bookData.bookname : ''; %>">
+                                <% if(typeof formError=='object' && formError.hasOwnProperty('bookname')){%>
+                                    <span class="help-block"><i class="fa fa-warning"></i> <%= formError.bookname.msg %></span>
+                                <% }%>
+                            </div>
+                        </div>
+
+                        <div class="form-group  <%= (typeof formError=='object' && formError.hasOwnProperty('authorname')) ? 'has-error' : 'no-has-error'; %>">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Author Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Author Name" name="authorname" value="<%= (typeof bookData=='object' && bookData.authorname) ? bookData.authorname : ''; %>">
+                                <% if(typeof formError=='object' && formError.hasOwnProperty('authorname')){%>
+                                    <span class="help-block"><i class="fa fa-warning"></i> <%= formError.authorname.msg %></span>
+                                <% }%>
+                            </div>
+                        </div>
+
+                        <div class="form-group <%= (typeof formError=='object' && formError.hasOwnProperty('version')) ? 'has-error' : 'no-has-error'; %>">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Version</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Version" name="version" value="<%= (typeof bookData=='object' && bookData.version) ? bookData.version : ''%>">
+                                <% if(typeof formError=='object' && formError.hasOwnProperty('version')){%>
+                                    <span class="help-block"><i class="fa fa-warning"></i> <%= formError.version.msg %></span>
+                                <% }%>
+                            </div>
+                        </div>
+
+                        <div class="form-group <%= (typeof formError=='object' && formError.hasOwnProperty('description')) ? 'has-error' : 'no-has-error'; %>">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Description</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control no-resize" name="description"><%= (typeof bookData=='object' && bookData.description) ? bookData.description : ''; %></textarea>
+                                <% if(typeof formError=='object' && formError.hasOwnProperty('description')){%>
+                                <span class="help-block"><i class="fa fa-warning"></i> <%= formError.description.msg %></span>
+                                <% }%>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group <%= (typeof formError=='object' && formError.hasOwnProperty('price')) ? 'has-error' : 'no-has-error'; %>">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Price</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Price" name="price" value="<%= (typeof bookData=='object' && bookData.price) ? bookData.price : '' %>">
+                                <% if(typeof formError=='object' && formError.hasOwnProperty('price')){%>
+                                <span class="help-block"><i class="fa fa-warning"></i> <%= formError.price.msg %></span>
+                                <% }%>
+                            </div>
+                        </div>
+
+                        <div class="form-group <%= (typeof formError=='object' && formError.hasOwnProperty('price')) ? 'has-error' : 'no-has-error'; %>">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Image</label>
+                            <div class="col-sm-10">
+                                <input id="input-image-upload" target=".image-file" class="file" type="file">
+                                <input type="hidden" name="image" class="image-file" value="<%= (typeof bookData=='object' && bookData.image) ? bookData.image : '' %>"/>
+                                <span class="help-block" id="input-image-upload-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

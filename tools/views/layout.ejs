@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bootstrap Admin Theme v3</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <!--<noscript class="deferred-styles">
+        <link href="//www.jqueryscript.net/demo/Styling-Your-File-Input-with-jQuery-Inputfile-Plugin-Bootstrap/jquery.inputfile.css" media="all" rel="stylesheet" type="text/css"/>
+    </noscript>-->
+    <script type="text/javascript">
+        var configData = {
+            baseUrl: 'http://localhost:3000',
+        };
+    </script>
+</head>
+<body>
+<% include partial/header.ejs %>
+<div class="page-content">
+    <div class="row">
+        <div class="col-md-2">
+            <% include partial/navmenu.ejs %>
+        </div>
+        <%- body %>
+    </div>
+</div>
+<% include partial/footer.ejs %>
+<script src="/js/jquery.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/plugins/file-style/bootstrap-filestyle.js"></script>
+
+<script src="/js/custom.js"></script>
+</body>
+</html>

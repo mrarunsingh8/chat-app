@@ -1,0 +1,61 @@
+<div class="col-md-10">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="content-box-header panel-heading">
+				<div class="panel-title ">Book</div>
+			
+			<div class="panel-options">
+				<a href="/book/add" data-rel="collapse"><i class="glyphicon glyphicon-plus"></i> Add New</a>
+			</div>
+			</div>
+			<div class="content-box-large box-with-header">
+				<div class="panel-body">
+  					<div class="table-responsive">
+  						<table class="table">
+			              <thead>
+			                <tr>
+			                  <th>#</th>
+			                  <th>Book Name</th>
+			                  <th>Author Name</th>
+			                  <th>Version</th>
+			                  <th>Description</th>
+							  <th>Price</th>
+							  <th>Image</th>
+			                  <th>Action</th>
+			                </tr>
+			              </thead>
+			              <tbody>
+			              	<% bookData.forEach(function(book){ %>
+			                <tr >
+			                  <td><%= book.id%></td>
+			                  <td><%= book.bookname%></td>
+			                  <td><%= book.authorname%></td>
+			                  <td><%= book.version%></td>
+			                  <td><%= book.description%></td>
+			                  <td><%= book.price%></td>
+							  <td>
+								  <% if(book.image){%>
+								  	<image src="/uploads/<%= book.image%>" class="img-responsive" style="width: 60px;"/>
+								  <% } %>
+							  </td>
+			                  <td>
+			                  	<div class="btn-group">
+				                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				                      Action <span class="caret"></span>
+				                    </button>
+				                    <ul class="dropdown-menu" role="menu">
+				                      <li><a href="book/edit/<%= book.id %>">Edit</a></li>
+				                      <li><a href="book/delete/<%= book.id%>">Delete</a></li>
+				                    </ul>
+				                </div>
+			                  </td>
+			                </tr>
+			                <% });%>
+			              </tbody>
+			            </table>
+  					</div>
+  				</div>
+			</div>
+		</div>
+	</div>
+</div>

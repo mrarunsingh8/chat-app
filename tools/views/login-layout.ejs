@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bootstrap Admin Theme v3</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+<% include partial/header.ejs %>
+<div class="page-content container">
+    <%- body %>
+</div>
+<% include partial/footer.ejs %>
+<script src="/js/jquery.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/custom.js"></script>
+</body>
+</html>

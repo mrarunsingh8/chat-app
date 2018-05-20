@@ -1,0 +1,88 @@
+<div class="col-md-10">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title">User Add/ Update</div>
+
+                    <div class="panel-options">
+                        <a href="/user" data-rel="collapse"><i class="glyphicon glyphicon-arrow-left"></i> Back</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" action="<%= (typeof userData=='object' && userData.id) ? 'user/edit/'+userData.id : 'user/add'; %>" method="post">
+                        <div class="form-group <%= (typeof formError=='object' && formError.hasOwnProperty('name')) ? 'has-error' : 'no-has-error'; %>">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Name" name="name" value="<%= (typeof userData=='object' && userData.name) ? userData.name : ''; %>">
+                                <% if(typeof formError=='object' && formError.hasOwnProperty('name')){%>
+                                    <span class="help-block"><i class="fa fa-warning"></i> <%= formError.name.msg %></span>
+                                <% }%>
+                            </div>
+                        </div>
+
+                        <div class="form-group  <%= (typeof formError=='object' && formError.hasOwnProperty('email')) ? 'has-error' : 'no-has-error'; %>">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" placeholder="Email" name="email" value="<%= (typeof userData=='object' && userData.email) ? userData.email : ''; %>">
+                                <% if(typeof formError=='object' && formError.hasOwnProperty('email')){%>
+                                    <span class="help-block"><i class="fa fa-warning"></i> <%= formError.email.msg %></span>
+                                <% }%>
+                            </div>
+                        </div>
+
+                        <div class="form-group <%= (typeof formError=='object' && formError.hasOwnProperty('username')) ? 'has-error' : 'no-has-error'; %>">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Username</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Username" name="username" value="<%= (typeof userData=='object' && userData.username) ? userData.username : ''; %>">
+                                <% if(typeof formError=='object' && formError.hasOwnProperty('username')){%>
+                                    <span class="help-block"><i class="fa fa-warning"></i> <%= formError.username.msg %></span>
+                                <% }%>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" placeholder="Password" readonly="readonly"  value="<%= (typeof userData=='object' && userData.password) ? userData.password : ''; %>">
+                            </div>
+                        </div>
+
+                        <div class="form-group <%= (typeof formError=='object' && formError.hasOwnProperty('contact')) ? 'has-error' : 'no-has-error'; %>">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Contact</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Contact" name="contact" value="<%= (typeof userData=='object' && userData.contact) ? userData.contact : ''; %>">
+                                <% if(typeof formError=='object' && formError.hasOwnProperty('contact')){%>
+                                    <span class="help-block"><i class="fa fa-warning"></i> <%= formError.contact.msg %></span>
+                                <% }%>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Token</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control no-resize" readonly="readonly"><%= (typeof userData=='object' && userData.token) ? userData.token : ''; %></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Token Expire In</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Token Expire Time" readonly="readonly"  value="<%= (typeof userData=='object' && userData.tokenExpireIn) ? userData.tokenExpireIn : ''; %>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
