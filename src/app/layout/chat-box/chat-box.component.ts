@@ -9,12 +9,17 @@ import * as io from 'socket.io-client';
 export class ChatBoxComponent implements OnInit {
   @ViewChild('chatToolbar', {read: ElementRef}) chatToolbar: ElementRef;
   @ViewChild('lastElm') lastElm: ElementRef;
-  url: any = 'http://localhost:3001/';
+  url: any = 'http://localhost:3001';
   socket: any;
-  constructor() {}
+  constructor() {
+    this.socket = io(this.url);
+    this.socket.emit("getUserList");
+  }
 
   ngOnInit() {
-    this.socket = io(this.url);
+    this.socket.on('listenUserList', (data)=>{
+      console.log(data);
+    });
   }
 
   ngOnDestroy(): void{
@@ -23,6 +28,8 @@ export class ChatBoxComponent implements OnInit {
 
   ngAfterViewInit() {
     this.scrollToElement();
+
+
   }
 
 

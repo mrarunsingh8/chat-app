@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
+var AppSocketController = require('./modules/app-socket-controller/app-socket-controller');
+
 var app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -37,5 +39,11 @@ app.get('/api', function(req, res, next){
 var io = require("socket.io").listen(app.listen(port));
 
 io.sockets.on('connection', function (socket) {
-  console.log("Connection Started on localhost:3001");
+  socket.on("getUserList", ()=>{
+    AppSocketController.getUser((data)=>{
+      io.emit('listenUserList', data);
+    }, (error)=>{
+      console.error("error Goes Here", error);
+    });
+  });
 });
