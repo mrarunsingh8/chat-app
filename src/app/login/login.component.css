@@ -1,0 +1,12 @@
+.form-field{
+	width: 100%;
+}
+.login-main-card{
+	margin: 60px 25% 0px 25%;
+}
+mat-form-field.login-form-field{
+    width: 100%;
+}
+.mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
+    background-color: #26a69a;
+}

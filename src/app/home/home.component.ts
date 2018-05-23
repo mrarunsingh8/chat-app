@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onClickUserOutput(user){
-    console.log("OnclickUser", user);
+    console.log("OnclickUser");
   }
 
 }

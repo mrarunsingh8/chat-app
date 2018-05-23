@@ -12,7 +12,10 @@
     background: #26A69A;
     color: #fff;
 }
-
+.mat-toolbar.mat-primary.footer-toolbar{
+	position: fixed;
+    bottom: 0px;
+}
 .mat-toolbar span{
 	width: -webkit-fill-available;
 	text-align: center;

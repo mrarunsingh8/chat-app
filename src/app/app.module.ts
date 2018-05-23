@@ -11,6 +11,7 @@ import { route } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import { SideListComponent } from './layout/side-list/side-list.component';
 import { ChatBoxComponent } from './layout/chat-box/chat-box.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ChatBoxComponent } from './layout/chat-box/chat-box.component';
     HomeLayoutComponent,
     HomeComponent,
     SideListComponent,
-    ChatBoxComponent
+    ChatBoxComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

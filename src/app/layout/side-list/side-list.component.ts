@@ -19,9 +19,9 @@ export class SideListComponent implements OnInit, OnChanges {
   	console.log("In the On Changes", this.userListInput);
   }
 
-  onClickUser(event){
-  	this.onClickUserOutput.emit(event);
+  clickOnUser(user){
   	console.log("Emmited");
+  	this.onClickUserOutput.emit(user);
   }
 
 
