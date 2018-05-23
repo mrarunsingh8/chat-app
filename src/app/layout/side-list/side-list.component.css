@@ -1,3 +1,6 @@
+mat-list-item{
+    cursor: pointer;
+}
 mat-list-item .img-avtar{
 	max-width: 50px;
     max-height: 50px;

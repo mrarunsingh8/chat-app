@@ -1,102 +1,12 @@
 <mat-list>
-  <mat-list-item >    
+  <mat-list-item *ngFor="let user of userListInput"  (click)="onClickUser(user)">    
     <div class="img-avtar">
       <img src="https://pickaface.net/assets/images/slides/slide4.png">
     </div>
     <div class="avtar-item">
-      <span mat-line>Note Name</span>
+      <span mat-line>{{user.name}}</span>
       <p mat-line> {{'22/05/2017'}} </p>
     </div>
+    <mat-divider></mat-divider>
   </mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item >    
-    <div class="img-avtar">
-      <img src="https://pickaface.net/assets/images/slides/slide4.png">
-    </div>
-    <div class="avtar-item">
-      <span mat-line>Note Name</span>
-      <p mat-line> {{'22/05/2017'}} </p>
-    </div>
-  </mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item >    
-    <div class="img-avtar">
-      <img src="https://pickaface.net/assets/images/slides/slide4.png">
-    </div>
-    <div class="avtar-item">
-      <span mat-line>Note Name</span>
-      <p mat-line> {{'22/05/2017'}} </p>
-    </div>
-  </mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item >    
-    <div class="img-avtar">
-      <img src="https://pickaface.net/assets/images/slides/slide4.png">
-    </div>
-    <div class="avtar-item">
-      <span mat-line>Note Name</span>
-      <p mat-line> {{'22/05/2017'}} </p>
-    </div>
-  </mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item >    
-    <div class="img-avtar">
-      <img src="https://pickaface.net/assets/images/slides/slide4.png">
-    </div>
-    <div class="avtar-item">
-      <span mat-line>Note Name</span>
-      <p mat-line> {{'22/05/2017'}} </p>
-    </div>
-  </mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item >    
-    <div class="img-avtar">
-      <img src="https://pickaface.net/assets/images/slides/slide4.png">
-    </div>
-    <div class="avtar-item">
-      <span mat-line>Note Name</span>
-      <p mat-line> {{'22/05/2017'}} </p>
-    </div>
-  </mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item >    
-    <div class="img-avtar">
-      <img src="https://pickaface.net/assets/images/slides/slide4.png">
-    </div>
-    <div class="avtar-item">
-      <span mat-line>Note Name</span>
-      <p mat-line> {{'22/05/2017'}} </p>
-    </div>
-  </mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item >    
-    <div class="img-avtar">
-      <img src="https://pickaface.net/assets/images/slides/slide4.png">
-    </div>
-    <div class="avtar-item">
-      <span mat-line>Note Name</span>
-      <p mat-line> {{'22/05/2017'}} </p>
-    </div>
-  </mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item >    
-    <div class="img-avtar">
-      <img src="https://pickaface.net/assets/images/slides/slide4.png">
-    </div>
-    <div class="avtar-item">
-      <span mat-line>Note Name</span>
-      <p mat-line> {{'22/05/2017'}} </p>
-    </div>
-  </mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item >    
-    <div class="img-avtar">
-      <img src="https://pickaface.net/assets/images/slides/slide4.png">
-    </div>
-    <div class="avtar-item">
-      <span mat-line>Note Name</span>
-      <p mat-line> {{'22/05/2017'}} </p>
-    </div>
-  </mat-list-item>
-  <mat-divider></mat-divider>
 </mat-list>

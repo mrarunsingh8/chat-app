@@ -1,22 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import * as io from 'socket.io-client';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  socket = null;
+  url: string = 'http://localhost:3001';
 
-  constructor() { }
-
-  ngOnInit() {
+  userList: any = [];
+  constructor() {
+    this.socket = io(this.url);
+    this.socket.emit("getUserList");
   }
 
-  tiles = [
-    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
-    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
-  ];
+  ngOnInit() {
+    this.socket.on('listenUserList', (data)=>{
+      this.userList = data;
+    });
+  }
+
+  ngOnDestroy(): void{
+    this.socket.disconnect();
+  }
+
+  onClickUserOutput(user){
+    console.log("OnclickUser", user);
+  }
 
 }
