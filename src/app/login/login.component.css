@@ -10,3 +10,6 @@ mat-form-field.login-form-field{
 .mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
     background-color: #26a69a;
 }
+.mat-raised-button[disabled]{
+	background-color: #e2e2e2;
+}

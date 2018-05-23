@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import * as io from 'socket.io-client';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-home',
@@ -7,23 +7,22 @@ import * as io from 'socket.io-client';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  socket = null;
-  url: string = 'http://localhost:3001';
+  @Input() socket:any;
 
   userList: any = [];
   constructor() {
-    this.socket = io(this.url);
     this.socket.emit("getUserList");
   }
 
   ngOnInit() {
-    this.socket.on('listenUserList', (data)=>{
+    this.socket.emit("getUserList");
+    /*this.socket.on('listenUserList', (data)=>{
       this.userList = data;
-    });
+    });*/
   }
 
   ngOnDestroy(): void{
-    this.socket.disconnect();
+    /*this.socket.disconnect();*/
   }
 
   onClickUserOutput(user){

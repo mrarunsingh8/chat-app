@@ -1,42 +1,21 @@
 <mat-card class="login-main-card">
+
   <mat-card-header>
-     <mat-card-title>Login</mat-card-title>
-   </mat-card-header>
-  <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+     <mat-card-title>Enter User Name For Enter Chat Room</mat-card-title>
+  </mat-card-header>
+
   <mat-card-content>
-    <form class="login-form">
+    <form [formGroup]="form" (ngSubmit)="submit()">
 
-	  <mat-form-field class="login-form-field">
-	    <input matInput type="email" placeholder="Email" >
-	    <mat-hint>Errors appear instantly!</mat-hint>
-	    <mat-error *ngIf="'true'">
-	      Please enter a valid email address
-	    </mat-error>
-	    <mat-error *ngIf="'true'">
-	      Email is <strong>required</strong>
-	    </mat-error>
+	  <mat-form-field [ngClass]="getNgClass(form.controls.username)">
+	    <input matInput type="username" placeholder="Username"  ([ngModel])="userData.username" formControlName="username">
+	    <mat-hint *ngIf="false">Errors appear instantly!</mat-hint>
 	  </mat-form-field>
-
-	  <mat-form-field class="login-form-field">
-	    <input matInput type="password" placeholder="Password" >
-	    <mat-hint>Errors appear instantly!</mat-hint>
-	    <mat-error *ngIf="'true'">
-	      Please enter a valid email address
-	    </mat-error>
-	    <mat-error *ngIf="'true'">
-	      Email is <strong>required</strong>
-	    </mat-error>
-	  </mat-form-field>
-
-
 
 	  <ng-container>
-	  	<button mat-raised-button type="button" color="primary">Primary</button>
+	  	<button mat-raised-button type="button" color="primary" [disabled]="!form.valid">  Login  </button>
 	  </ng-container>
 
 	</form>
   </mat-card-content>
-  <mat-card-actions>
-    
-  </mat-card-actions>
 </mat-card>
