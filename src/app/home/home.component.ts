@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {HomeService} from '../home.service';
 
 @Component({
   selector: 'app-home',
@@ -7,26 +7,16 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  @Input() socket:any;
-
-  userList: any = [];
-  constructor() {
-    this.socket.emit("getUserList");
+  constructor(private homeService: HomeService) {
   }
 
   ngOnInit() {
-    this.socket.emit("getUserList");
-    /*this.socket.on('listenUserList', (data)=>{
-      this.userList = data;
-    });*/
+
   }
 
-  ngOnDestroy(): void{
-    /*this.socket.disconnect();*/
+  ngOnDestroy(): void {
   }
 
-  onClickUserOutput(user){
-    console.log("OnclickUser");
+  onClickUserOutput(user) {
   }
-
 }

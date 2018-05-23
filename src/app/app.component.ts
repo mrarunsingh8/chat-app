@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import * as io from 'socket.io-client';
 
 @Component({
@@ -8,22 +8,6 @@ import * as io from 'socket.io-client';
 })
 export class AppComponent {
   title = 'app';
-  socket: any = null;
-  url: string = 'http://localhost:3001';
-
-  userList: any = [];
   constructor() {
-    this.socket = io(this.url);
-    this.socket.emit("getUserList");
-  }
-
-  ngOnInit() {
-    this.socket.on('listenUserList', (data)=>{
-      this.userList = data;
-    });
-  }
-
-  ngOnDestroy(): void{
-    this.socket.disconnect();
   }
 }

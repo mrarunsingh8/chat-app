@@ -39,6 +39,13 @@ app.get('/api', function(req, res, next){
 var io = require("socket.io").listen(app.listen(port));
 
 io.sockets.on('connection', function (socket) {
+  /*socket.on("auth", function () {
+    AppSocketController.authUser(function (data) {
+      io.emit("onAuth", data);
+    }, function (error) {
+      console.log("Error in Login", error);
+    });
+  });*/
   socket.on("getUserList", ()=>{
     AppSocketController.getUser((data)=>{
       io.emit('listenUserList', data);
@@ -46,4 +53,9 @@ io.sockets.on('connection', function (socket) {
       console.error("error Goes Here", error);
     });
   });
+
+  socket.on("sendChat", function (data) {
+    io.emit("onChatUpdate", data);
+  });
+
 });
