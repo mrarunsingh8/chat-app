@@ -11,18 +11,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   userList: any = [];
   constructor() {
-    this.socket.emit("getUserList");
   }
 
   ngOnInit() {
-    this.socket.emit("getUserList");
-    /*this.socket.on('listenUserList', (data)=>{
-      this.userList = data;
-    });*/
   }
 
   ngOnDestroy(): void{
-    /*this.socket.disconnect();*/
   }
 
   onClickUserOutput(user){

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -9,11 +9,16 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 export class LoginComponent implements OnInit {
   userData: {username: string} = {username: null};
   form: FormGroup;
+  @Input() socket:any;
   constructor(private formBuilder: FormBuilder) {
 
   }
 
   ngOnInit() {
+  	console.log(this.socket);
+  	/*this.socket.on('listenUserList', (data)=>{
+      console.log("Inside Login", data);
+    });*/
   	this.form = this.formBuilder.group({
   		username: ['', [Validators.required, Validators.minLength(4)]],
   	});
@@ -25,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   submit(){
   	if (this.form.valid) {
-  		
+
 	}
   }
 
