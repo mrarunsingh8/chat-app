@@ -7,5 +7,16 @@ import {HomeService} from '../home.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  constructor(private homeService: HomeService) {
+  }
 
+  ngOnInit() {
+
+  }
+
+  ngOnDestroy(): void {
+  }
+
+  onClickUserOutput(user) {
+  }
 }
