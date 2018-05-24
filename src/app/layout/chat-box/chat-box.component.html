@@ -1,86 +1,9 @@
 <mat-toolbar #chatToolbar class="chat-box-toolbar">
-	<mat-toolbar-row class="rcv">
-		<div class="chat-item-card">
-			<span class="chat-content">Standard dummy text.</span>
-			<span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;11:30 am</span></div>
-	</mat-toolbar-row>
-
-	<mat-toolbar-row class="rcv">
-		<div class="chat-item-card">
-			<span class="chat-content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</span>
-			<span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;11:30 am</span>
-		</div>
-	</mat-toolbar-row>
-
-	<mat-toolbar-row class="snd">
-		<div class="chat-item-card">
-			<span class="chat-content">typesetting industry.</span>
-			<span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;11:30 am</span></div>
-	</mat-toolbar-row>
-
-	<mat-toolbar-row class="snd">
-		<div class="chat-item-card">
-			<span class="chat-content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</span>
-			<span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;11:30 am</span>
-		</div>
-	</mat-toolbar-row>
-
-	<mat-toolbar-row class="rcv">
-		<div class="chat-item-card">
-			<span class="chat-content">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
-			<span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;11:30 am</span></div>
-	</mat-toolbar-row>
-
-	<mat-toolbar-row class="snd">
-		<div class="chat-item-card">
-			<span class="chat-content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</span>
-			<span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;11:30 am</span>
-		</div>
-	</mat-toolbar-row>
-
-	<mat-toolbar-row class="snd">
-		<div class="chat-item-card">
-			<span class="chat-content">Lorem Ipsum is simply dummy.1</span>
-			<span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;11:30 am</span>
-		</div>
-	</mat-toolbar-row>
-
-	<mat-toolbar-row class="rcv">
-		<div class="chat-item-card">
-			<span class="chat-content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</span>
-			<span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;11:30 am</span>
-		</div>
-	</mat-toolbar-row>
-
-
-
-	<mat-toolbar-row class="rcv">
-		<div class="chat-item-card">
-			<span class="chat-content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</span>
-			<span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;11:30 am</span>
-		</div>
-	</mat-toolbar-row>
-
-	<mat-toolbar-row class="snd">
-		<div class="chat-item-card">
-			<span class="chat-content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</span>
-			<span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;11:30 am</span>
-		</div>
-	</mat-toolbar-row>
-
-	<mat-toolbar-row class="snd">
-		<div class="chat-item-card">
-			<span class="chat-content">Lorem Ipsum is.</span>
-			<span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;11:30 am</span>
-		</div>
-	</mat-toolbar-row>
-
-	<mat-toolbar-row #lastElm class="rcv">
-		<div class="chat-item-card">
-			<span class="chat-content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the th</span>
-			<span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;11:30 am</span>
-		</div>
-	</mat-toolbar-row>
+  <mat-toolbar-row *ngFor="let chat of chatData; let last;" [ngClass]="chat.type">
+    <div class="chat-item-card">
+      <span class="chat-content">{{chat.content}}</span>
+      <span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;{{chat.time}}</span></div>
+  </mat-toolbar-row>
 </mat-toolbar>
 <!--
 <mat-toolbar class="chat-input-toolbar">
@@ -102,7 +25,7 @@
       </button>
     </div>
     <div class="col-sm-9 col-xs-9 reply-main">
-      <textarea class="form-control" rows="1" id="comment"></textarea>
+      <textarea class="form-control" rows="1" id="comment" #textArea></textarea>
     </div>
     <!--<div class="col-sm-1 col-xs-1 reply-recording">
       <button mat-button  mat-icon-button aria-label="Clear">
@@ -110,7 +33,7 @@
       </button>
     </div>-->
     <div class="col-sm-1 col-xs-1 reply-send">
-      <button mat-button  mat-icon-button aria-label="Clear">
+      <button mat-button  mat-icon-button aria-label="Clear" (click)="onClickSend(textArea)">
         <mat-icon>send</mat-icon>
       </button>
     </div>

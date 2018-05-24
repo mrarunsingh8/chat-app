@@ -56,11 +56,7 @@ let authModal = {
 	validateToken:function(result, callback){
 		let token=null;
 		if(result.data.token.length > 10){
-			if((new Date().getTime()) > (new Date(result.data.tokenExpireIn))){
-				token = this.generateNewToken(result);
-			}else{
-				token = result.data.token;
-			}
+
 		}else{
 			token = this.generateNewToken(result);
 		}
@@ -91,7 +87,7 @@ let authModal = {
             	throw reason;
 			});
         });
-	},
+	}
 }
 
 module.exports = authModal;

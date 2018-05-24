@@ -1,29 +1,34 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {HomeService} from '../../home.service';
 
 @Component({
   selector: 'app-side-list',
   templateUrl: './side-list.component.html',
   styleUrls: ['./side-list.component.css']
 })
-export class SideListComponent implements OnInit, OnChanges {
-  @Input('userListInput') userListInput:any;
-  @Output() onClickUserOutput = new EventEmitter<any>();
+export class SideListComponent implements OnInit, OnDestroy {
+  userListInput: any;
 
-  constructor() {
+  constructor(private homeService: HomeService) {
   }
 
   ngOnInit() {
+    this.homeService.socket.emit('getUserList');
+    this.homeService.socket.on('listenUserList', (data) => {
+      this.userListInput = data;
+    });
   }
 
-  ngOnChanges(){
-  	console.log("In the On Changes", this.userListInput);
+  ngOnDestroy() {
+    this.homeService.socket.emit('getUserList');
+    this.homeService.socket.on('listenUserList', (data) => {
+      this.userListInput = data;
+    });
   }
 
-  clickOnUser(user){
-  	console.log("Emmited");
-  	this.onClickUserOutput.emit(user);
+  clickOnUser(user) {
+    console.log('Emmited');
   }
-
 
 
 }
