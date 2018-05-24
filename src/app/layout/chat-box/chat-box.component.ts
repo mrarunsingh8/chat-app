@@ -21,7 +21,7 @@ export class ChatBoxComponent implements OnInit {
       }
       this.chatData.push(data);
       this.isSend = false;
-      //this.scrollToElement();
+      this.scrollToElement();
     });
   }
 
@@ -41,7 +41,7 @@ export class ChatBoxComponent implements OnInit {
   ];
 
   ngAfterViewInit() {
-    //this.scrollToElement();
+    this.scrollToElement();
   }
 
   changeTextArea(evt){
@@ -67,18 +67,11 @@ export class ChatBoxComponent implements OnInit {
     return strTime;
   }
 
-
-  /*public scrollToElement() {
-    console.log('Scrolled', this.chatToolbar);
-    this.chatToolbar.nativeElement.scrollTo(0, this.lastElm.nativeElement.offsetTop, 500);
-  }*/
-
-  /*public scrollToElement() {
+  public scrollToElement() {
     var self = this;
     setTimeout(function () {
-      console.log('Scrolled', self.chatToolbar.nativeElement.lastChild.offsetTop);
-      self.chatToolbar.nativeElement.scrollTo(0, self.chatToolbar.nativeElement.lastChild.offsetTop, 500);
+      self.chatToolbar.nativeElement.scrollTop=self.chatToolbar.nativeElement.scrollHeight;
     }, 1000);
-  }*/
+  }
 
 }
