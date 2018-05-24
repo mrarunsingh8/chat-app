@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
       console.log("Inside Login", data);
     });*/
   	this.form = this.formBuilder.group({
-  		username: ['', [Validators.required, Validators.minLength(4)]],
+      username: ['', [Validators.required, Validators.minLength(4)]],
+      password: ['', [Validators.required, Validators.minLength(4)]],
   	});
   }
 

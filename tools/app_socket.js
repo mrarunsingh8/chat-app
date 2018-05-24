@@ -40,7 +40,7 @@ var io = require("socket.io").listen(app.listen(port));
 
 io.sockets.on('connection', function (socket) {
   /*socket.on("auth", function () {
-    AppSocketController.authUser(function (data) {
+    AppSocketController.isAuthenticateUser(function (data) {
       io.emit("onAuth", data);
     }, function (error) {
       console.log("Error in Login", error);
