@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, Renderer } from '@angular/core';
 import {HomeService} from '../../home.service';
 
 @Component({
@@ -9,7 +9,9 @@ import {HomeService} from '../../home.service';
 export class SideListComponent implements OnInit, OnDestroy {
   userListInput: any;
 
-  constructor(private homeService: HomeService) {
+  isActive: boolean = false;
+
+  constructor(private homeService: HomeService, private renderer: Renderer) {
   }
 
   ngOnInit() {
@@ -26,8 +28,19 @@ export class SideListComponent implements OnInit, OnDestroy {
     });
   }
 
-  clickOnUser(user) {
-    console.log('Emmited');
+  clickOnUser(event, user) {
+    var userlistArr = this.getClosest(event.target, 'user-list-container').childNodes;
+    /*for(var i=0;i<userlistArr.length; i++){
+      userlistArr[i].classList.remove("active");
+      //console.log(userlistArr[i].classList.remove("active"));
+      //userlistArr[i].classList.remove('active');
+    }*/
+    this.getClosest(event.target, "user-list-item").classList.add('active');
+  }
+
+  getClosest(el, cls):any {
+      while ((el = el.parentNode) && el.className.indexOf(cls) < 0);
+      return el;
   }
 
 

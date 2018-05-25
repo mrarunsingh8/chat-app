@@ -60,6 +60,7 @@ let authModal = {
 		}else{
 			token = this.generateNewToken(result);
 		}
+		console.log("Responce", responce);
 		callback({success:true,token:token});
 	},
 	isAuthenticateUser:function(data){
@@ -70,6 +71,40 @@ let authModal = {
 					self.isExistUsernamePassword(data).then(function(result){
                         if(result.success){
                             self.validateToken(result, function(responce){
+                                resolve(responce);
+                            });
+                        }else{
+                            let res = {success:false,message:'Authentication failed. Passwords did not match.'};
+                            resolve(res);
+                        }
+                    }).catch(function (reason) {
+                        throw reason;
+					});
+                }else{
+                    let res = {success:false,message:'Authentication failed. User not found.'};
+                    resolve(res);
+                }
+            }).catch(function (reason) {
+            	throw reason;
+			});
+        });
+	},
+
+
+	validateTokenForChat:function(result, callback){
+		let token=null;
+		token = this.generateNewToken(result);
+		callback({success:true,token:token});
+	},
+
+	isAuthenticateUserForChat:function(data){
+		let self = this;
+		return new Promise(function (resolve, reject) {
+			self.isExistUsername(data.username).then(function(isExistUser){
+				if(isExistUser){
+					self.isExistUsernamePassword(data).then(function(result){
+                        if(result.success){
+                            self.validateTokenForChat(result, function(responce){
                                 resolve(responce);
                             });
                         }else{

@@ -11,4 +11,27 @@ export class HomeService {
   constructor() {
     this.socket = io(this.url);
   }
+
+  private setToken(token: string){
+  	localStorage.setItem('token', token);
+  }
+
+  doLogin(token: string){
+  	localStorage.setItem('isLogin', 'true');
+  	this.setToken(token);
+  }
+
+  private getFromLocalStorage(key: string){
+  	return localStorage.getItem(key);
+  }
+
+  isLogin(){
+  	if(typeof this.getFromLocalStorage('token') == 'undefined' || this.getFromLocalStorage('token') == 'null' || this.getFromLocalStorage('token').trim() == ''){
+  		return false;
+  	}
+  	if(this.getFromLocalStorage('isLogin') != 'true'){
+  		return false;
+  	}
+  	return true;
+  }
 }

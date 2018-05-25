@@ -2,7 +2,7 @@ mat-toolbar.chat-box-toolbar.mat-toolbar.mat-toolbar-multiple-rows {
     overflow-y: scroll;
     max-height: -webkit-fill-available;
 }
-mat-toolbar.chat-box-toolbar[_ngcontent-c10] {
+mat-toolbar.chat-box-toolbar {
     min-height: 86%;
 }
 mat-toolbar mat-toolbar-row{

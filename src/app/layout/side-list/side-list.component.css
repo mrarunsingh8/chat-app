@@ -1,5 +1,24 @@
+mat-toolbar.mat-toolbar.searchToolbar.mat-toolbar-multiple-rows {
+    background: #FFF;
+}
+
+.mat-toolbar.searchToolbar .search-user{
+    width: 90%;
+}
+.mat-toolbar.searchToolbar .search-user input{
+    width: 97%;
+    border-radius: 5px;
+    height: 35px;
+    font-size: 26px;
+    color: #7b7b7b;
+    font-family: cursive;
+}
+
 mat-list-item{
     cursor: pointer;
+}
+mat-list-item.active{
+    background: #b4d2cf;
 }
 mat-list-item .img-avtar{
 	max-width: 50px;

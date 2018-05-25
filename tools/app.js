@@ -51,25 +51,6 @@ app.use('/authenticate', auth);
 app.use('/login', login);
 app.use('/api', router);
 
-/*router.use(session({ 
-    name: 'X-XSRF-TOKEN', 
-    secret: 'SESSION_SECRET_KEY', 
-    cookie: {
-        path: '/',
-        httpOnly: true,
-        secure: false,
-        maxAge: 3600000
-    },
-    rolling: true, 
-    resave: false, 
-    saveUninitialized: true
-}));
-router.use(csrf( { cookie: true } ));
-router.use(function(req, res, next){
-	res.cookie('X-XSRF-TOKEN', req.csrfToken());
-	return next();
-});*/
-
 router.use(function(req, res, next){	
 	var expressBasicAuth = req.get('authorization');
 	if (!expressBasicAuth) {

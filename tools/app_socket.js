@@ -6,12 +6,16 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 
 var AppSocketController = require('./modules/app-socket-controller/app-socket-controller');
+var jwt = require("jsonwebtoken");
+var basicAuth = require('express-basic-auth');
 
 var app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser('SECRET_KEY_ENETER_HERE'));
+
+process.env.SECRET_KEY= "SECRETKEYFORCHATUSER";
 
 const port = process.env.PORT || 3001;
 
@@ -39,13 +43,13 @@ app.get('/api', function(req, res, next){
 var io = require("socket.io").listen(app.listen(port));
 
 io.sockets.on('connection', function (socket) {
-  /*socket.on("auth", function () {
-    AppSocketController.isAuthenticateUser(function (data) {
-      io.emit("onAuth", data);
-    }, function (error) {
-      console.log("Error in Login", error);
+  socket.on("auth", function(data){
+    AppSocketController.AuthenticateUser(data, function(resp){
+      io.emit("onAuthenticate", resp);
     });
-  });*/
+  });
+
+
   socket.on("getUserList", ()=>{
     AppSocketController.getUser((data)=>{
       io.emit('listenUserList', data);

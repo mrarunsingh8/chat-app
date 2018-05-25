@@ -5,7 +5,7 @@
   </mat-card-header>
 
   <mat-card-content>
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form [formGroup]="form" (ngSubmit)="submitLogin()">
 
 	  <mat-form-field [ngClass]="getNgClass(form.controls.username)">
 	    <input matInput type="text" placeholder="Username"  ([ngModel])="userData.username" formControlName="username">
@@ -18,7 +18,7 @@
 	  </mat-form-field>
 
 	  <ng-container>
-	  	<button mat-raised-button type="button" color="primary" [disabled]="!form.valid">  Login  </button>
+	  	<button mat-raised-button type="submit" color="primary" [disabled]="!form.valid">  Login  </button>
 	  </ng-container>
 
 	</form>
