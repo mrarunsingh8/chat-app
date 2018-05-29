@@ -2,7 +2,7 @@
 
   <mat-toolbar-row>
     <div class="search-user">
-      <input class="form-control" >
+      <input class="form-control" (input)="onSearchInput($event)">
     </div>
     <span class="example-spacer"></span>
     <mat-icon end class="example-icon">search</mat-icon>
@@ -18,7 +18,7 @@
 
 
 <mat-list class="user-list-container">
-  <mat-list-item *ngFor="let user of userListInput" [ngClass]="{'user-list-item': true}"  (click)="clickOnUser($event, user)">    
+  <mat-list-item *ngFor="let user of userListInput" [ngClass]="{'user-list-item': true}"  (click)="openUserChat($event, user)">    
     <div class="img-avtar">
       <img src="https://pickaface.net/assets/images/slides/slide4.png">
     </div>

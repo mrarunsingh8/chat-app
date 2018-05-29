@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, Renderer } from '@angular/core';
+import {Component, OnDestroy, OnInit, Renderer, HostListener} from '@angular/core';
 import {HomeService} from '../../home.service';
 
 @Component({
@@ -12,12 +12,19 @@ export class SideListComponent implements OnInit, OnDestroy {
   isActive: boolean = false;
 
   constructor(private homeService: HomeService, private renderer: Renderer) {
+    
   }
 
   ngOnInit() {
     this.homeService.socket.emit('getUserList');
     this.homeService.socket.on('listenUserList', (data) => {
       this.userListInput = data;
+    });
+
+    this.homeService.socket.on("listenUserSearch", (data)=>{
+      if(this.homeService.getToken() == data.currentUser){
+        this.userListInput = data.responce;
+      }
     });
   }
 
@@ -28,19 +35,24 @@ export class SideListComponent implements OnInit, OnDestroy {
     });
   }
 
-  clickOnUser(event, user) {
-    var userlistArr = this.getClosest(event.target, 'user-list-container').childNodes;
-    /*for(var i=0;i<userlistArr.length; i++){
+  openUserChat(event, user) {
+    let userlistArr = this.getClosest(event.target, 'user-list-container').querySelectorAll('mat-list-item');
+    for(var i=0;i<userlistArr.length; i++){
       userlistArr[i].classList.remove("active");
-      //console.log(userlistArr[i].classList.remove("active"));
-      //userlistArr[i].classList.remove('active');
-    }*/
+    }
     this.getClosest(event.target, "user-list-item").classList.add('active');
+
+    let data = {currentUser: this.homeService.getToken(), otherUser: user.username};
+    this.homeService.socket.emit("openUserChatRoom", data);
   }
 
-  getClosest(el, cls):any {
+  private getClosest(el, cls):any {
       while ((el = el.parentNode) && el.className.indexOf(cls) < 0);
       return el;
+  }
+
+  onSearchInput(event){
+    this.homeService.socket.emit("onSearchuser", {terms: event.target.value, token: this.homeService.getToken()});
   }
 
 

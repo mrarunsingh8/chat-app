@@ -58,6 +58,18 @@ io.sockets.on('connection', function (socket) {
     });
   });
 
+  socket.on("onSearchuser", (data)=>{
+    AppSocketController.SearchUserByTerm(data).then((resData)=>{
+      io.emit("listenUserSearch", {currentUser: data.token, responce: resData});
+    });
+  });
+
+  socket.on("openUserChatRoom", (data)=>{
+    AppSocketController.OpenUserChatRoom(data).then((respData)=>{
+      console.log("User Chat Room data", respData);
+    });
+  });
+
   socket.on("sendChat", function (data) {
     io.emit("onChatUpdate", data);
   });

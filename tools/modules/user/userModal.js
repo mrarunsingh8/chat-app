@@ -1,6 +1,20 @@
 var db = require('../../lib/dbConfig');
 
 var userModal = {
+    SearchUserByTerm: function(dataParams){
+        var dataParams = (typeof dataParams == 'object')?dataParams:{terms: null};
+        return new Promise((resolve, reject)=>{
+            if(dataParams.terms != null){
+                let $terms = dataParams.terms;
+                db.all("SELECT name, username, token FROM user WHERE name LIKE '%"+$terms+"%' OR username LIKE '%"+$terms+"%' ORDER BY name ASC", [], (err, rows, fields)=>{
+                    if(err) reject(err);
+                    resolve(rows, fields);
+                });
+            }else{
+                resolve([]);
+            }
+        });
+    },
 	getAllUser:function(dataParams){
         var dataParams = (typeof dataParams == 'object')?dataParams:{};
         dataParams = Object.assign({}, {startPage: (dataParams.startPage || 0), perPage: (dataParams.perPage || 10)}, dataParams);

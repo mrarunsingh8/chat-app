@@ -16,6 +16,13 @@ export class HomeService {
   	localStorage.setItem('token', token);
   }
 
+  getToken(): string{
+    if(this.isLogin()){
+      return this.getFromLocalStorage('token');
+    }
+    return null;
+  }
+
   doLogin(token: string){
   	localStorage.setItem('isLogin', 'true');
   	this.setToken(token);
