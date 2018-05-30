@@ -23,7 +23,6 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-  // allow preflight
   if (req.method === 'OPTIONS') {
     res.sendStatus(200);
   } else {
@@ -66,12 +65,30 @@ io.sockets.on('connection', function (socket) {
 
   socket.on("openUserChatRoom", (data)=>{
     AppSocketController.OpenUserChatRoom(data).then((respData)=>{
-      console.log("User Chat Room data", respData);
+      io.emit("listenOpenChatBox", {token: data.currentUser , otherUser: data.otherUser, chatRoomId: respData});
+    });
+  });
+
+  socket.on("loadChatRoom", (data)=>{
+    AppSocketController.LoadChatRoom(data).then((respData)=>{
+      io.emit("onChatUpdate", {chatRoomId: data.chatRoomId, token: data.currentUser, chatData: respData});
     });
   });
 
   socket.on("sendChat", function (data) {
-    io.emit("onChatUpdate", data);
+    AppSocketController.SaveChat(data).then((resp)=>{
+      if(resp.affectedRows){
+        AppSocketController.LoadChatRoom(data).then((respData)=>{
+          io.emit("onChatUpdate", {chatRoomId: data.chatRoomId, token: data.currentUser, chatData: respData});
+        });
+      }
+    });
+  });
+
+  socket.on("logoutUser", (data)=>{  
+    AppSocketController.logoutUser(data).then((resp)=>{
+      io.emit("listenLogOutUser", data);
+    });
   });
 
 });

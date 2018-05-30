@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, HostListener } from '@angular/core';
 import {HomeService} from '../home.service';
 
 @Component({
@@ -11,12 +11,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
+    const self = this;
   }
 
   ngOnDestroy(): void {
+    this.homeService.socket("onClose", {currentUser: this.homeService.getToken()});
   }
 
   onClickUserOutput(user) {
+
   }
 }

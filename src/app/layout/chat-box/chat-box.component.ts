@@ -11,37 +11,44 @@ export class ChatBoxComponent implements OnInit {
   @ViewChild('lastElm') lastElm: ElementRef;
   textValue: string = '';
   isSend: boolean = false;
+  chatData:any = [];
+
+  chatRoomId: number = 0;
+  otherUserId: number = 0;
   constructor(private homeService: HomeService) {
   }
 
   ngOnInit() {
-    this.homeService.socket.on("onChatUpdate", (data)=>{
-      if(this.isSend){
-        data.type = 'snd';
+    this.homeService.socket.on("listenOpenChatBox", (data)=>{
+      if(data.token === this.homeService.getToken()){
+        this.chatRoomId = data.chatRoomId;
+        this.otherUserId = data.otherUser;
+        this.loadChatRoom();
       }
-      this.chatData.push(data);
-      this.isSend = false;
-      this.scrollToElement();
     });
   }
 
-  chatData:any = [
-    /*{time: '1:30am', content: 'Chat 1', type: 'rcv'},
-    {time: '1:30am', content: 'Hello', type: 'rcv'},
-    {time: '1:30am', content: 'Hi', type: 'snd'},
-    {time: '1:30am', content: 'Hey Whats upp', type: 'rcv'},
-    {time: '1:30am', content: 'I`m fine and you' , type: 'snd'},
-    {time: '1:30am', content: 'I`m also fine.', type: 'rcv'},
-    {time: '1:30am', content: 'What are you doing now', type: 'snd'},
-    {time: '1:30am', content: 'Nothing More special', type: 'rcv'},
-    {time: '1:30am', content: 'I`m fine and you' , type: 'snd'},
-    {time: '1:30am', content: 'I`m also fine.', type: 'rcv'},
-    {time: '1:30am', content: 'What are you doing now', type: 'snd'},
-    {time: '1:30am', content: 'Nothing More special', type: 'rcv'},*/
-  ];
+  loadChatRoom(){
+    const data = {chatRoomId: this.chatRoomId, currentUser: this.homeService.getToken(), chatRoom: this.chatRoomId, otherUser: this.otherUserId};
+    this.homeService.socket.emit("loadChatRoom", data);
+  }
+
 
   ngAfterViewInit() {
     this.scrollToElement();
+
+    this.homeService.socket.on("onChatUpdate", (data)=>{
+      if(data.chatRoomId === this.chatRoomId){
+        if(data.token !== this.homeService.getToken()){
+          data.chatData = data.chatData.filter((res)=>{
+            res.type = (res.type !== 'snd')?'snd':'rcv';
+            return res;
+          });
+        }
+        this.chatData = data.chatData;
+        this.scrollToElement();
+      }
+    });
   }
 
   changeTextArea(evt){
@@ -49,11 +56,15 @@ export class ChatBoxComponent implements OnInit {
   }
 
   onClickSend(textArea){
-    let data = {content: textArea.value, time: this.formatAMPM(), type: 'rcv'};
-    this.isSend = true;
+    let data = { chatRoomId: this.chatRoomId, currentUser: this.homeService.getToken(), otherUser: this.otherUserId, chatText: textArea.value, dateTime: this.curDateTime(new Date()), type: 'rcv'};
     this.homeService.socket.emit("sendChat", data);
     textArea.value = '';
   }
+
+  curDateTime(date){
+    date = (typeof date == 'undefined')?new Date():date;
+    return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+  },
 
   formatAMPM(): string {
     var date = new Date();

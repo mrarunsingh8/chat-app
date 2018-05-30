@@ -10,12 +10,7 @@
 
 </mat-toolbar>
 
-
-
-
-
 <mat-divider></mat-divider>
-
 
 <mat-list class="user-list-container">
   <mat-list-item *ngFor="let user of userListInput" [ngClass]="{'user-list-item': true}"  (click)="openUserChat($event, user)">    
@@ -24,6 +19,7 @@
     </div>
     <div class="avtar-item">
       <span mat-line>{{user.name}}</span>
+      <span class="username">{{user.name}}</span>
       <p mat-line> {{'22/05/2017'}} </p>
     </div>
     <mat-divider></mat-divider>

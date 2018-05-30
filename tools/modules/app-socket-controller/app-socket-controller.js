@@ -32,12 +32,37 @@ var AppSocketController = {
 	OpenUserChatRoom: (data)=>{
 		return new Promise((resolve, reject)=>{
 			AppChatModal.OpenUserChatRoom(data).then((respdata)=>{
-				resolve(data);
+				resolve(respdata);
 			}).catch((reason)=>{
 				console.log("Error Reson", reason);
 			});
 		});
-	}	
+	},
+
+	LoadChatRoom: function(data){
+		return new Promise((resolve, reject)=>{
+			AppChatModal.LoadChatRoom(data).then((respdata)=>{
+				resolve(respdata);
+			}).catch((reason)=>{
+				console.log("Error Reson", reason);
+			});
+		});
+	},
+	SaveChat: function(data){
+		return new Promise((resolve, reject)=>{
+			AppChatModal.SaveChat(data).then((respdata)=>{
+				resolve(respdata);
+			});
+		});
+	},
+
+	logoutUser: function(data){
+		return new Promise((resolve, reject)=>{
+			AppChatModal.logoutUser(data).then((respdata)=>{
+				resolve(respdata);
+			});
+		});
+	}
 
 };
 module.exports = AppSocketController;

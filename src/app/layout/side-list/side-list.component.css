@@ -43,6 +43,18 @@ mat-list-item .avtar-item span.mat-line {
     font-size: 15px;
     font-family: monospace;
     color: #868686;
+    display: -webkit-inline-box;
+}
+
+mat-list-item .avtar-item span.username {
+    margin-top: 22px;
+    font-size: 10px;
+    font-family: monospace;
+    color: #ababab;
+    display: -webkit-inline-box;
+    float: right;
+    right: 30px;
+    position: absolute;
 }
 
 mat-list-item .avtar-item p.mat-line {

@@ -16,6 +16,10 @@ export class HomeService {
   	localStorage.setItem('token', token);
   }
 
+  closeConnection(){
+    this.socket.emit("logoutUser", {token: this.getToken()});
+  }
+
   getToken(): string{
     if(this.isLogin()){
       return this.getFromLocalStorage('token');
@@ -28,12 +32,18 @@ export class HomeService {
   	this.setToken(token);
   }
 
+  doLogout(){
+    localStorage.removeItem('isLogin');
+    this.setToken(null);
+    localStorage.removeItem("token");
+  }
+
   private getFromLocalStorage(key: string){
   	return localStorage.getItem(key);
   }
 
   isLogin(){
-  	if(typeof this.getFromLocalStorage('token') == 'undefined' || this.getFromLocalStorage('token') == 'null' || this.getFromLocalStorage('token').trim() == ''){
+  	if(typeof this.getFromLocalStorage('token') == 'undefined' || this.getFromLocalStorage('token') == 'null'){
   		return false;
   	}
   	if(this.getFromLocalStorage('isLogin') != 'true'){

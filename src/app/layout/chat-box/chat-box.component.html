@@ -1,8 +1,8 @@
 <mat-toolbar #chatToolbar class="chat-box-toolbar">
   <mat-toolbar-row *ngFor="let chat of chatData; let last;" [ngClass]="chat.type">
     <div class="chat-item-card">
-      <span class="chat-content">{{chat.content}}</span>
-      <span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;{{chat.time}}</span></div>
+      <span class="chat-content">{{chat.chatText}}</span>
+      <span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;{{chat.dateTime}}</span></div>
   </mat-toolbar-row>
 </mat-toolbar>
 <!--
@@ -20,7 +20,7 @@
 <div class="chat-input-toolbar">
   <div class="row reply">
     <div class="col-sm-1 col-xs-1 reply-emojis">
-      <button mat-button  mat-icon-button aria-label="Clear">
+      <button mat-button mat-icon-button aria-label="Clear">
         <mat-icon>insert_emoticon</mat-icon>
       </button>
     </div>
