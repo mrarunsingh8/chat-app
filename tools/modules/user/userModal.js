@@ -6,7 +6,7 @@ var userModal = {
         return new Promise((resolve, reject)=>{
             if(dataParams.terms != null){
                 let $terms = dataParams.terms;
-                db.all("SELECT name, username, token FROM user WHERE name LIKE '%"+$terms+"%' OR username LIKE '%"+$terms+"%' ORDER BY name ASC", [], (err, rows, fields)=>{
+                db.all("SELECT name, username, token, lastSeen, isOnline FROM userTableView WHERE name LIKE '%"+$terms+"%' OR username LIKE '%"+$terms+"%' ORDER BY name ASC", [], (err, rows, fields)=>{
                     if(err) reject(err);
                     resolve(rows, fields);
                 });
@@ -20,20 +20,33 @@ var userModal = {
         dataParams = Object.assign({}, {startPage: (dataParams.startPage || 0), perPage: (dataParams.perPage || 10)}, dataParams);
         console.log(dataParams);
 		return new Promise(function (resolve, reject) {
-            db.all('SELECT *, (SELECT COUNT(*) from user) as totalCount from user ORDER BY id DESC LIMIT ?,?', [dataParams.startPage, dataParams.perPage], function(err, rows, fields) {
+            db.all('SELECT *, (SELECT COUNT(*) from userTableView) as totalCount from userTableView ORDER BY id DESC LIMIT ?,?', [dataParams.startPage, dataParams.perPage], function(err, rows, fields) {
                 if (err) reject(err);
                 resolve(rows, fields);
             });
         })
 	},
-	userDetail:function(userId){
-		return new Promise(function (resolve, reject) {
-            db.all('SELECT * FROM user WHERE id="'+userId+'"', function(err, rows, fields){
+    userDetail:function(userId){
+        return new Promise(function (resolve, reject) {
+            db.all('SELECT * FROM userTableView WHERE id="'+userId+'"', function(err, rows, fields){
                 if(err) reject(err);
                 resolve(rows);
             });
         });
-	},
+    },
+
+    userDetailByUsername:function(userName){
+        return new Promise(function (resolve, reject) {
+            db.all('SELECT * FROM userTableView WHERE username="'+userName+'"', function(err, rows, fields){
+                if(err) reject(err);
+                if(rows.length){
+                    resolve(rows[0]);
+                }else{
+                    resolve({});
+                }
+            });
+        });
+    },
 
     AddNewUser: function (userData) {
         return new Promise(function (resolve, reject) {
@@ -55,7 +68,7 @@ var userModal = {
 
     DeleteUser: function (userId) {
         return new Promise(function (resolve, reject) {
-            db.run('DELETE FROM user  WHERE id="'+userId+'" ', function(err){
+            db.run('DELETE FROM userTableView  WHERE id="'+userId+'" ', function(err){
                 if(err) reject(err);
                 resolve({affectedRows: this.changes, deletedId:userId});
             });

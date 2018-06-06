@@ -15,6 +15,7 @@ export class ChatBoxComponent implements OnInit {
 
   chatRoomId: number = 0;
   otherUserId: number = 0;
+
   constructor(private homeService: HomeService) {
   }
 
@@ -58,13 +59,14 @@ export class ChatBoxComponent implements OnInit {
   onClickSend(textArea){
     let data = { chatRoomId: this.chatRoomId, currentUser: this.homeService.getToken(), otherUser: this.otherUserId, chatText: textArea.value, dateTime: this.curDateTime(new Date()), type: 'rcv'};
     this.homeService.socket.emit("sendChat", data);
+    this.onTyping(false);
     textArea.value = '';
   }
 
   curDateTime(date){
     date = (typeof date == 'undefined')?new Date():date;
     return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
-  },
+  }
 
   formatAMPM(): string {
     var date = new Date();
@@ -83,6 +85,11 @@ export class ChatBoxComponent implements OnInit {
     setTimeout(function () {
       self.chatToolbar.nativeElement.scrollTop=self.chatToolbar.nativeElement.scrollHeight;
     }, 1000);
+  }
+
+  onTyping(isTyping: boolean){
+    let data = {showTypingForUser: this.otherUserId, whichUserTyping: this.homeService.getToken(), chatRoomId: this.chatRoomId, isTyping: isTyping};
+    this.homeService.socket.emit("onUserTyping", data);
   }
 
 }

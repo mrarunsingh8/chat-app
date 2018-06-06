@@ -13,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { SideListComponent } from './layout/side-list/side-list.component';
 import { ChatBoxComponent } from './layout/chat-box/chat-box.component';
 import { LoginComponent } from './login/login.component';
+import { IsTypingDirective } from './directive/istyping.directive';
+import { LastSeenPipe } from './conf/lastSeenPipe/last-seen.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { LoginComponent } from './login/login.component';
     HomeComponent,
     SideListComponent,
     ChatBoxComponent,
-    LoginComponent
+    LoginComponent,
+    IsTypingDirective,
+    LastSeenPipe
   ],
   imports: [
     BrowserModule,

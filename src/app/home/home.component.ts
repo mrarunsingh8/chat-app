@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.homeService.socket("onClose", {currentUser: this.homeService.getToken()});
+    this.homeService.socket.on("close", {currentUser: this.homeService.getToken()});
   }
 
   onClickUserOutput(user) {

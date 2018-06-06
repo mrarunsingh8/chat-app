@@ -22,7 +22,7 @@ export class HomeLayoutComponent implements OnInit{
   	this.homeService.socket.on("listenLogOutUser", (data)=>{
   		if(data.token == this.homeService.getToken()){
   			this.homeService.doLogout();
-  			this.router.navigate(['login']);
+  			this.router.navigateByUrl('login');
   		}
   	});
   }

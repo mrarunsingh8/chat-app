@@ -63,3 +63,6 @@ mat-list-item .avtar-item p.mat-line {
     font-family: monospace;
     color: #868686;
 }
+p.mat-line.typing{
+    color: green !important;
+}

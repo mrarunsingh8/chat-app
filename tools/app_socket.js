@@ -32,46 +32,45 @@ app.use(function (req, res, next) {
 app.use(logger('dev'));
 app.use(cors());
 
-app.get('/', function(req, res, next){
+/*app.get('/', function(req, res, next){
   return res.end('Api working');
 });
 app.get('/api', function(req, res, next){
   return res.end('Api working');
-});
+});*/
 
 var io = require("socket.io").listen(app.listen(port));
 
 io.sockets.on('connection', function (socket) {
   socket.on("auth", function(data){
+    data = Object.assign({socketId: socket.id}, data);
     AppSocketController.AuthenticateUser(data, function(resp){
-      io.emit("onAuthenticate", resp);
+      io.to(socket.id).emit("onAuthenticate", resp);
     });
   });
 
 
-  socket.on("getUserList", ()=>{
-    AppSocketController.getUser((data)=>{
-      io.emit('listenUserList', data);
-    }, (error)=>{
-      console.error("error Goes Here", error);
+  socket.on("getUserList", (socData)=>{
+    AppSocketController.getUser(socData).then((data)=>{
+      io.to(socket.id).emit('listenUserList', data);
     });
   });
 
   socket.on("onSearchuser", (data)=>{
     AppSocketController.SearchUserByTerm(data).then((resData)=>{
-      io.emit("listenUserSearch", {currentUser: data.token, responce: resData});
+      io.to(socket.id).emit("listenUserSearch", {currentUser: data.token, responce: resData});
     });
   });
 
   socket.on("openUserChatRoom", (data)=>{
     AppSocketController.OpenUserChatRoom(data).then((respData)=>{
-      io.emit("listenOpenChatBox", {token: data.currentUser , otherUser: data.otherUser, chatRoomId: respData});
+      io.to(socket.id).emit("listenOpenChatBox", {token: data.currentUser , otherUser: data.otherUser, chatRoomId: respData});
     });
   });
 
   socket.on("loadChatRoom", (data)=>{
     AppSocketController.LoadChatRoom(data).then((respData)=>{
-      io.emit("onChatUpdate", {chatRoomId: data.chatRoomId, token: data.currentUser, chatData: respData});
+      io.to(socket.id).emit("onChatUpdate", {chatRoomId: data.chatRoomId, token: data.currentUser, chatData: respData});
     });
   });
 
@@ -87,7 +86,23 @@ io.sockets.on('connection', function (socket) {
 
   socket.on("logoutUser", (data)=>{  
     AppSocketController.logoutUser(data).then((resp)=>{
-      io.emit("listenLogOutUser", data);
+      io.to(socket.id).emit("listenLogOutUser", data);
+    });
+  });
+
+  socket.on("doConnect", function(data){
+    data = Object.assign({socketId: socket.id}, data);
+    AppSocketController.connectUser(data);
+  });
+
+  socket.on("disconnect", function(evt){
+    AppSocketController.disconnectUser(socket.id);
+  });
+
+
+  socket.on("onUserTyping", function(data){
+    AppSocketController.onUserTyping(data).then((userData)=>{
+      io.to(userData.socketId).emit("isUserTyping", data);
     });
   });
 

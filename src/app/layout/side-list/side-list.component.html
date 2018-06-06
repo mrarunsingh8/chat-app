@@ -20,7 +20,8 @@
     <div class="avtar-item">
       <span mat-line>{{user.name}}</span>
       <span class="username">{{user.name}}</span>
-      <p mat-line> {{'22/05/2017'}} </p>
+      <p mat-line *ngIf="checkIsUserTyping(user.token)" class="typing"> Typing... </p>
+      <p mat-line *ngIf="!checkIsUserTyping(user.token)"> {{(user.isOnline == 'Y')?"Online":(user.lastSeen | lastSeen)}} </p>
     </div>
     <mat-divider></mat-divider>
   </mat-list-item>

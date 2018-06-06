@@ -10,13 +10,16 @@ export class SideListComponent implements OnInit, OnDestroy {
   userListInput: any;
 
   isActive: boolean = false;
+  isTyping: boolean = false;
 
+  isUserTyping: any = [];
   constructor(private homeService: HomeService, private renderer: Renderer) {
     
   }
 
   ngOnInit() {
-    this.homeService.socket.emit('getUserList');
+    const userData = {token: this.homeService.getToken()};
+    this.homeService.socket.emit('getUserList', userData);
     this.homeService.socket.on('listenUserList', (data) => {
       this.userListInput = data;
     });
@@ -26,10 +29,28 @@ export class SideListComponent implements OnInit, OnDestroy {
         this.userListInput = data.responce;
       }
     });
+
+    this.homeService.socket.on("isUserTyping", (data)=>{
+      if(data.isTyping === true){
+        if(this.isUserTyping.indexOf(data.whichUserTyping) < 0){
+          this.isUserTyping.push(data.whichUserTyping);
+        }
+      }else{
+        const indx = this.isUserTyping.indexOf(data.whichUserTyping);
+        if(indx > -1){
+          this.isUserTyping = this.isUserTyping.filter((item)=>{
+            return (item != data.whichUserTyping);
+          });
+        }
+      }
+    });
+  }
+
+  checkIsUserTyping(tokenId){
+    return (this.isUserTyping).includes(tokenId);
   }
 
   ngOnDestroy() {
-    this.homeService.socket.emit('getUserList');
     this.homeService.socket.on('listenUserList', (data) => {
       this.userListInput = data;
     });
@@ -54,6 +75,4 @@ export class SideListComponent implements OnInit, OnDestroy {
   onSearchInput(event){
     this.homeService.socket.emit("onSearchuser", {terms: event.target.value, token: this.homeService.getToken()});
   }
-
-
 }

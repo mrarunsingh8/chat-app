@@ -4,10 +4,44 @@ var AppChatModal = {
 	currentUser: {id: 0},
 	otherUser: {id: 0},
 	userChatRoomId: 0,
+
+	ConnectUser: function(data){
+		thisOb = this;
+		return new Promise((resolve, reject)=>{
+			db.run("UPDATE user SET isOnline=?, socketId=? where token=?", ['Y', data.socketId, data.token], function(err){
+				if(err) console.log(err);
+				resolve({action: "OnConnection", affectedRows: this.changes, updateId: data.token});
+			});
+		});
+	},
+
+	disconnectUser: function(socketId){
+		thisOb = this;
+		return new Promise((resolve, reject)=>{
+			var lastSeen = thisOb.getDateObjectToDateFormate(new Date());
+			db.run("UPDATE user SET lastSeen=?, isOnline=? where socketId=?", [lastSeen, 'N', socketId], function(err){
+				if(err) console.log(err);
+				resolve({affectedRows: this.changes, updateId: socketId});
+			});
+		});
+	},
+
+
+	getUserChatList:function(dataParams){
+        var dataParams = (typeof dataParams == 'object')?dataParams:{};
+        dataParams = Object.assign({}, {token: '', startPage: (dataParams.startPage || 0), perPage: (dataParams.perPage || 10)}, dataParams);
+		return new Promise(function (resolve, reject) {
+            db.all('SELECT *, (SELECT COUNT(*) from userTableView) as totalCount from userTableView ORDER BY id DESC LIMIT ?,?', [dataParams.startPage, dataParams.perPage], function(err, rows, fields) {
+                if (err) reject(err);
+                resolve(rows, fields);
+            });
+        })
+	},
+
 	getUserIdByToken: function(token){
 		thisobj = this;
 		return new Promise((resolve, reject)=>{
-			db.all("SELECT id from user WHERE token=? ORDER BY id DESC",[token], (err, rows, fields)=>{
+			db.all("SELECT id from userTableView WHERE token=? ORDER BY id DESC",[token], (err, rows, fields)=>{
 	            if(err) reject(err);
 	            if(rows.length > 0){
 	            	thisobj.currentUser.id = rows[0].id;
@@ -23,7 +57,7 @@ var AppChatModal = {
 	getUserIdByUsername: function(username){
 		thisobj = this;
 		return new Promise((resolve, reject)=>{
-			db.all("SELECT id from user WHERE username=? ORDER BY id DESC", [username], (err, rows, fields)=>{
+			db.all("SELECT id from userTableView WHERE username=? ORDER BY id DESC", [username], (err, rows, fields)=>{
 	            if(err) reject(err);
 	            if(rows.length > 0){
 	            	thisobj.otherUser.id = rows[0].id;
@@ -38,7 +72,7 @@ var AppChatModal = {
 
 	CheckExistChatRoom: function(){
 		return new Promise((resolve, reject)=>{
-			db.all("SELECT COUNT(*) from chatroom WHERE (roomuser=? AND user=?) OR (roomuser=? AND user=?) ORDER BY id DESC", [], (err, rows, fields)=>{
+			db.all("SELECT COUNT(*) from chatRoomTableView WHERE (roomuser=? AND user=?) OR (roomuser=? AND user=?) ORDER BY id DESC", [], (err, rows, fields)=>{
 	            if(err) reject(err);
 	            resolve(rows, fields);
 	        });
@@ -47,7 +81,7 @@ var AppChatModal = {
 
 	isExistChatRoom: function(currentUser, otherUser){
 		return new Promise((resolve, reject)=>{
-			db.all("SELECT id FROM chatroom WHERE (room_user=? AND user=?) OR (room_user=? AND user=?) ORDER BY id DESC", [currentUser, otherUser, otherUser, currentUser], (err, rows, fields)=>{
+			db.all("SELECT id FROM chatRoomTableView WHERE (room_user=? AND user=?) OR (room_user=? AND user=?) ORDER BY id DESC", [currentUser, otherUser, otherUser, currentUser], (err, rows, fields)=>{
                 if(rows.length > 0){
 	            	thisobj.userChatRoomId = rows[0].id;
 	            	resolve(thisobj.userChatRoomId);
@@ -110,7 +144,7 @@ var AppChatModal = {
 	getChatData: function(){
 		let thisOb = this;
 		return new Promise((resolve, reject)=>{
-			db.all("SELECT id, chatText,dateTime, isDeleted, isRead,(CASE WHEN chatdata.sender = ? THEN 'snd' ELSE 'rcv' END) as type FROM chatdata WHERE (sender=? AND reciever=?) OR (sender=? AND reciever=?) ORDER BY dateTime ASC", [thisOb.currentUser.id, thisOb.currentUser.id, thisOb.otherUser.id, thisOb.otherUser.id, thisOb.currentUser.id], (err, rows, fields)=>{
+			db.all("SELECT id, chatText,dateTime, isDeleted, isRead,(CASE WHEN chatDataTableView.sender = ? THEN 'snd' ELSE 'rcv' END) as type FROM chatDataTableView WHERE (sender=? AND reciever=?) OR (sender=? AND reciever=?) ORDER BY id ASC limit 0, 60", [thisOb.currentUser.id, thisOb.currentUser.id, thisOb.otherUser.id, thisOb.otherUser.id, thisOb.currentUser.id], (err, rows, fields)=>{
                 resolve(rows);
             });
 		});

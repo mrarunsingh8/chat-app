@@ -2,6 +2,7 @@ var jwt =  require('jsonwebtoken');
 var db = require('../../lib/dbConfig');
 
 let authModal = {
+	data: {socketId: 0},
 	isExistUsername:function(username){
 		return new Promise(function (resolve, reject) {
             db.all(" SELECT * FROM user WHERE username=? ",[username], function(err, rows, fields){
@@ -40,7 +41,7 @@ let authModal = {
 		}
 		let tokenExpireIn = getExpiretionTime();
 		if(token != null){
-			db.run("UPDATE user SET token=?, tokenExpireIn=?  WHERE id=? ", [token, tokenExpireIn, userId], function(err, rows, fields){
+			db.run("UPDATE user SET token=?, tokenExpireIn=?, socketId=?, isOnline=?  WHERE id=? ", [token, tokenExpireIn, self.data.socketId, 'Y', userId], function(err, rows, fields){
 				if(err) throw err;
 			});
 		}
@@ -60,7 +61,6 @@ let authModal = {
 		}else{
 			token = this.generateNewToken(result);
 		}
-		console.log("Responce", responce);
 		callback({success:true,token:token});
 	},
 	isAuthenticateUser:function(data){
@@ -99,6 +99,7 @@ let authModal = {
 
 	isAuthenticateUserForChat:function(data){
 		let self = this;
+		self.data = Object.assign({}, data);
 		return new Promise(function (resolve, reject) {
 			self.isExistUsername(data.username).then(function(isExistUser){
 				if(isExistUser){
