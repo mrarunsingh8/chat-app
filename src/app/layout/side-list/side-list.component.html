@@ -18,8 +18,8 @@
       <img src="https://pickaface.net/assets/images/slides/slide4.png">
     </div>
     <div class="avtar-item">
-      <span mat-line>{{user.name}}</span>
-      <span class="username">{{user.name}}</span>
+      <span mat-line class=" badges" data-badge="4" >{{user.name}}</span>
+      <span class="username">{{user.name}} </span>
       <p mat-line *ngIf="checkIsUserTyping(user.token)" class="typing"> Typing... </p>
       <p mat-line *ngIf="!checkIsUserTyping(user.token)"> {{(user.isOnline == 'Y')?"Online":(user.lastSeen | lastSeen)}} </p>
     </div>

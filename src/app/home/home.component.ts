@@ -7,11 +7,20 @@ import {HomeService} from '../home.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  userListInput: any =[];
+  chatBoxUserDetail: any = {};
+  
   constructor(private homeService: HomeService) {
   }
 
   ngOnInit() {
     const self = this;
+    this.homeService.socket.on('listenUserList', (data) => {
+      this.userListInput = data;
+      this.userListInput.map((user)=>{
+        console.log(user);
+      });
+    });
   }
 
   ngOnDestroy(): void {
@@ -20,5 +29,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onClickUserOutput(user) {
 
+  }
+
+  onOpenChatBox(user){
+    this.chatBoxUserDetail = user;
   }
 }

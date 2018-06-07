@@ -51,7 +51,9 @@ io.sockets.on('connection', function (socket) {
 
 
   socket.on("getUserList", (socData)=>{
+    console.log("GetUser List");
     AppSocketController.getUser(socData).then((data)=>{
+      console.log("Listen User List");
       io.to(socket.id).emit('listenUserList', data);
     });
   });

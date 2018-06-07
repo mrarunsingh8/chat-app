@@ -28,14 +28,24 @@ var AppChatModal = {
 
 
 	getUserChatList:function(dataParams){
+		var self = this;
         var dataParams = (typeof dataParams == 'object')?dataParams:{};
         dataParams = Object.assign({}, {token: '', startPage: (dataParams.startPage || 0), perPage: (dataParams.perPage || 10)}, dataParams);
-		return new Promise(function (resolve, reject) {
-            db.all('SELECT *, (SELECT COUNT(*) from userTableView) as totalCount from userTableView ORDER BY id DESC LIMIT ?,?', [dataParams.startPage, dataParams.perPage], function(err, rows, fields) {
+        return new Promise(function (resolve, reject) {
+        	self.getUserIdByToken(dataParams.token).then((CurUserId)=>{
+        		db.all('SELECT userTbl.*,(SELECT COUNT(id) FROM chatDataTableView WHERE sender=userTbl.id AND isRead="N" AND reciever = ?) AS unread from userTableView AS userTbl LEFT JOIN chatDataTableView AS chatTbl ON chatTbl.reciever = userTbl.id WHERE userTbl.token!=? GROUP BY userTbl.id ORDER BY chatTbl.id DESC LIMIT ?,?',[CurUserId, CurUserId, dataParams.startPage, dataParams.perPage], function(err, rows, fields) {
+	                if (err) reject(err);
+	                resolve(rows, fields);
+	            });
+        	});
+            /*db.all('SELECT userTbl.*, (SELECT COUNT(*) from userTableView) as totalCount, , (SELECT id FROM chatDataTableView WHERE sender=userTbl.id AND isRead="N" AND reciever = (SELECT id FROM userTableView WHERE token=?)) AS unread from userTableView AS userTbl LEFT JOIN chatDataTableView AS chatTbl ON chatTbl.reciever = userTbl.id WHERE userTbl.token!=? GROUP BY userTbl.id ORDER BY chatTbl.id DESC LIMIT ?,?',[dataParams.token, dataParams.token, dataParams.startPage, dataParams.perPage], function(err, rows, fields) {
                 if (err) reject(err);
                 resolve(rows, fields);
-            });
-        })
+            });*/
+        });
+
+        /*SELECT userTbl.*, (SELECT COUNT(*) from userTableView) as totalCount, (SELECT id FROM chatDataTableView WHERE sender=userTbl.id AND isRead='N' AND reciever = (SELECT id FROM userTableView WHERE token=?))  from userTableView AS userTbl LEFT JOIN chatDataTableView AS chatTbl ON chatTbl.reciever = userTbl.id WHERE userTbl.token<>? GROUP BY userTbl.id ORDER BY chatTbl.id DESC*/
+        /**/
 	},
 
 	getUserIdByToken: function(token){

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, Renderer, HostListener} from '@angular/core';
+import {Component, OnDestroy, OnInit, Renderer, HostListener, Input, Output, EventEmitter, OnChanges} from '@angular/core';
 import {HomeService} from '../../home.service';
 
 @Component({
@@ -6,8 +6,9 @@ import {HomeService} from '../../home.service';
   templateUrl: './side-list.component.html',
   styleUrls: ['./side-list.component.css']
 })
-export class SideListComponent implements OnInit, OnDestroy {
-  userListInput: any;
+export class SideListComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() userListInput: any = [];
+  @Output() onOpenChatBox: EventEmitter<any> = new EventEmitter();
 
   isActive: boolean = false;
   isTyping: boolean = false;
@@ -17,12 +18,13 @@ export class SideListComponent implements OnInit, OnDestroy {
     
   }
 
+  ngOnChanges(){
+    this.userListInput = this.userListInput;
+  }
+
   ngOnInit() {
     const userData = {token: this.homeService.getToken()};
-    this.homeService.socket.emit('getUserList', userData);
-    this.homeService.socket.on('listenUserList', (data) => {
-      this.userListInput = data;
-    });
+    this.homeService.socket.emit('getUserList', userData);    
 
     this.homeService.socket.on("listenUserSearch", (data)=>{
       if(this.homeService.getToken() == data.currentUser){
@@ -65,6 +67,7 @@ export class SideListComponent implements OnInit, OnDestroy {
 
     let data = {currentUser: this.homeService.getToken(), otherUser: user.username};
     this.homeService.socket.emit("openUserChatRoom", data);
+    this.onOpenChatBox.emit(user);
   }
 
   private getClosest(el, cls):any {

@@ -1,9 +1,37 @@
+.user-profile mat-toolbar-row.mat-toolbar-row {
+    display: flex;
+}
+
+.avtar-item p {
+    font-size: 10px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+.img-avtar{
+  max-width: 50px;
+    max-height: 50px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.img-avtar img{
+  width: inherit;
+  height: inherit;
+}
+
+.avtar-item{
+  padding: 0px 0px 0px 11px;
+}
+
 mat-toolbar.chat-box-toolbar.mat-toolbar.mat-toolbar-multiple-rows {
     overflow-y: scroll;
     max-height: -webkit-fill-available;
 }
 mat-toolbar.chat-box-toolbar {
-    min-height: 86%;
+    min-height: 69%;
 }
 mat-toolbar mat-toolbar-row{
 	width: 100%
@@ -11,7 +39,7 @@ mat-toolbar mat-toolbar-row{
 mat-toolbar.chat-box-toolbar.mat-toolbar.mat-toolbar-multiple-rows {
     height: -webkit-fill-available;
     padding: 12px 0px 0px 0px;
-    max-height: 87%;
+    max-height: 72%;
 }
 mat-toolbar.chat-box-toolbar{
 
@@ -46,8 +74,10 @@ mat-toolbar-row.snd.mat-toolbar-row .chat-item-card {
     background-color: #d9ffdb;
 }
 span.chat-time {
-    float: right;
     font-weight: 500;
+}
+span.right-chat-sec{  
+    float: right;
 }
 mat-toolbar[_ngcontent-c10] mat-toolbar-row[_ngcontent-c10] {
     width: 100%;
@@ -160,4 +190,28 @@ textarea#mat-input-0 {
   -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
   -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.read-mark-container .read-mark{
+  display:inline-block;
+  margin-left: 0.7px;
+}
+.read-mark-container.isRead .read-mark:after{
+    content: '';
+    display: block;
+    width: 2px;
+    height: 8px;
+    border: solid #47c5dc;
+    border-width: 0 1px 1px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.read-mark-container .read-mark:after{
+    content: '';
+    display: block;
+    width: 2px;
+    height: 8px;
+    border: solid #636565;
+    border-width: 0 1px 1px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
 }

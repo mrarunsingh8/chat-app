@@ -1,11 +1,11 @@
 <mat-grid-list cols="5" rowHeight="100px">
 	
 	<mat-grid-tile [colspan]="'2'" [rowspan]="'5'" [style.background]="'#FFF'">
-		<app-side-list></app-side-list>
+		<app-side-list [userListInput]="userListInput" (onOpenChatBox)="onOpenChatBox($event)"></app-side-list>
 	</mat-grid-tile>
 
 	<mat-grid-tile [colspan]="'3'" [rowspan]="'5'">
-		<app-chat-box></app-chat-box>
+		<app-chat-box [chatBoxUserDetail]="chatBoxUserDetail"></app-chat-box>
 	</mat-grid-tile>
   
 </mat-grid-list>

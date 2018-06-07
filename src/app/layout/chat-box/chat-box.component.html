@@ -1,8 +1,31 @@
+<mat-toolbar [ngClass]="{'user-profile': true}">
+  <mat-toolbar-row>
+    <div class="img-avtar">
+      <img src="https://pickaface.net/assets/images/slides/slide4.png">
+    </div>
+    <div class="avtar-item">
+      <span class="username">Arun Singh</span>
+      <p class="typing"> Typing... </p>
+      <!-- <p > Online </p> -->
+    </div>
+    <mat-divider></mat-divider>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-divider></mat-divider>
 <mat-toolbar #chatToolbar class="chat-box-toolbar">
   <mat-toolbar-row *ngFor="let chat of chatData; let last;" [ngClass]="chat.type">
     <div class="chat-item-card">
       <span class="chat-content">{{chat.chatText}}</span>
-      <span class="chat-time">&nbsp;&nbsp;&nbsp;&nbsp;{{chat.dateTime}}</span></div>
+      
+      <span class="right-chat-sec">
+        <span class="chat-time">{{chat.dateTime}}&nbsp;&nbsp;</span>
+        <span [ngClass]="{'read-mark-container': true, isRead: chat.isRead == 'Y'}" *ngIf="chat.type == 'snd'">
+          <span class="read-mark"></span>
+          <span class="read-mark" *ngIf="chat.isRead == 'Y'"></span>
+        </span>
+      </span>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 <!--

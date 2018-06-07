@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, Input, OnChanges} from '@angular/core';
 import {HomeService} from '../../home.service';
 
 @Component({
@@ -6,7 +6,8 @@ import {HomeService} from '../../home.service';
   templateUrl: './chat-box.component.html',
   styleUrls: ['./chat-box.component.css'],
 })
-export class ChatBoxComponent implements OnInit {
+export class ChatBoxComponent implements OnInit, OnChanges {
+  @Input() chatBoxUserDetail: any;
   @ViewChild('chatToolbar', {read: ElementRef}) chatToolbar: ElementRef;
   @ViewChild('lastElm') lastElm: ElementRef;
   textValue: string = '';
@@ -18,8 +19,11 @@ export class ChatBoxComponent implements OnInit {
 
   constructor(private homeService: HomeService) {
   }
-
+  ngOnChanges(){
+    console.log('chatBoxUserDetail', this.chatBoxUserDetail);
+  }
   ngOnInit() {
+    
     this.homeService.socket.on("listenOpenChatBox", (data)=>{
       if(data.token === this.homeService.getToken()){
         this.chatRoomId = data.chatRoomId;
